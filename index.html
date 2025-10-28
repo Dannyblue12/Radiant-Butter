@@ -124,7 +124,7 @@ img { max-width: 100%; height: auto; display: block; }
 
 /* Treating Scars Section - Renamed to Product Focus */
 .treating-scars-section { background-color: var(--color-bg-section-green); position: relative; overflow: hidden; min-height: auto; padding: 4rem 0; }
-/* Updated radial gradient color for tan theme */
+/* Revert radial gradient color for tan theme - using the RGB equivalent of the accent color */
 .treating-scars-section::before { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(ellipse at 20% 80%, rgba(192, 157, 115, 0.2), transparent 65%); z-index: 0; }
 .treating-scars-container { position: relative; z-index: 1; display: grid; grid-template-columns: 1fr; align-items: center; text-align: center; }
 .scar-treatment-content { margin-bottom: 2rem; }
@@ -139,35 +139,85 @@ img { max-width: 100%; height: auto; display: block; }
     left: 50%;
     transform: translateX(-50%);
     width: 700px;
-    height: 100%; 
-    max-width: 790px; 
+    height: 100%; /* TWEAK THIS for mobile image size */
+    max-width: 790px; /* TWEAK THIS for mobile image max width */
     object-fit: contain;
     object-position: bottom;
 }
-.scar-features-list-curved { display: none; } 
+.scar-features-list-curved { display: none; } /* Hidden on mobile */
 
-/* Our Services Masonry - Renamed to Products */
+/* Our Services Masonry */
 .our-services-section { background-color: var(--color-bg-light); }
 .services-masonry-grid { column-count: 1; column-gap: 1.2rem; }
 .service-masonry-item { margin-bottom: 1.2rem; break-inside: avoid; position: relative; overflow: hidden; border-radius: 10px; box-shadow: var(--shadow-soft); }
 .service-masonry-item img { width: 100%; display: block; transition: transform 0.4s ease; }
 .service-masonry-item:hover img { transform: scale(1.05); }
+/* Revert overlay gradient to the original structure but with tan colors */
 .service-masonry-item .overlay { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(42, 31, 19, 0.85) 0%, transparent 100%); padding: 1.2rem 0.8rem; color: var(--color-text-white); }
 .service-masonry-item .overlay h4 { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.2rem; }
 .service-masonry-item .overlay p { font-size: 0.85rem; opacity: 0.9; }
 
 /* Reviews Section */
-.reviews-section { background-color: var(--color-bg-white); } 
-/* Updated border color for tan theme */
+.reviews-section { background-color: var(--color-bg-white); } /* White background */
+.review-slider-container { position: relative; max-width: 100%; margin: 0 auto; overflow: hidden; /* Added to help contain */ }
+.review-slider-wrapper { overflow: hidden; }
+.review-slider { display: flex; cursor: grab; }
+.review-slider.grabbing { cursor: grabbing; }
+.review-card { min-width: 88%; max-width: 88%; flex-shrink: 0; background-color: var(--color-text-white); border-radius: 16px; padding: 1.8rem 1.3rem; margin: 0 0.6rem; box-shadow: var(--shadow-medium); text-align: center; transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.5s ease; border: 1px solid #eee; }
 .review-card img.reviewer-avatar { width: 60px; height: 60px; border-radius: 50%; margin: 0 auto 0.8rem auto; border: 2px solid var(--color-primary-green); }
-/* Updated quote color for tan theme */
+.review-card .reviewer-name { font-size: 1rem; font-weight: 600; }
+.review-card .review-source { font-size: 0.75rem; color: var(--color-text-light); margin-bottom: 0.8rem; }
+.review-card .review-text { font-size: 0.9rem; color: var(--color-text-medium); line-height: 1.7; font-style: italic; }
 .review-card .review-text::before, .review-card .review-text::after { color: var(--color-primary-green); font-size: 1.8rem; line-height: 0; vertical-align: -0.3em; }
+.review-card .review-text::before { content: '“'; margin-right: 0.15rem; }
+.review-card .review-text::after { content: '”'; margin-left: 0.15rem; }
+.slider-nav { display: flex; justify-content: center; margin-top: 2rem; }
+.slider-nav button { margin: 0 0.4rem; }
 
 /* Before & After Section */
+/* 1. GLOBAL RESET */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* 2. SECTION BACKGROUND */
 .before-after-section {
-  /* Updated gradient background for tan theme */
+  /* Updated gradient background for tan theme (green d1fae5 to tan f0e6d6) */
   background: linear-gradient(135deg, var(--color-bg-section-green), #f0e6d6);
   padding: 3.5rem 0;
+}
+
+/* 3. SLIDER CONTAINER */
+.ba-slider-container {
+  position: relative;
+  overflow: hidden; /* critical to hide off-slide content */
+  width: 100%;
+}
+
+/* 4. SLIDER TRACK */
+.ba-slider {
+  display: flex;
+  transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* 5. INDIVIDUAL SLIDE */
+.ba-slide {
+  flex: 0 0 100%; /* always exactly 100% of the container’s width */
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  align-items: center;
+  padding: 0 1rem;
+  min-height: 400px; /* optionally force a minimum height */
+}
+
+/* 6. TEXT CONTENT */
+.ba-content {
+  text-align: center;
 }
 .ba-content .subtitle {
   font-weight: 600;
@@ -176,24 +226,273 @@ img { max-width: 100%; height: auto; display: block; }
   text-transform: uppercase;
   margin-bottom: 0.5rem;
 }
+.ba-content h3 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+}
+.ba-content p {
+  color: var(--color-text-medium);
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
+}
+
+/* 7. IMAGE WRAPPER */
+.ba-image-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  aspect-ratio: 16 / 9; /* keeps a consistent height/width */
+  overflow: hidden;
+}
+.ba-image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 16px;
+  box-shadow: var(--shadow-medium);
+}
+
+/* 8. NAVIGATION BUTTONS */
+.ba-nav {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  transform: translateY(-50%);
+  display: flex;
+  justify-content: space-between;
+  padding: 0 1rem;
+  z-index: 10;
+}
+.ba-nav button {
+  background-color: rgba(255, 255, 255, 0.7);
+  color: var(--color-text-dark);
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 50%;
+  box-shadow: var(--shadow-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+.ba-nav button:hover {
+  background-color: rgba(255, 255, 255, 1);
+}
+
+/* 9. MEDIA QUERIES */
+/* Small phones (≤ 480px) */
+@media (max-width: 480px) {
+  .ba-slide {
+    padding: 0 0.75rem;
+    gap: 1rem;
+  }
+  .ba-content h3 {
+    font-size: 1.5rem;
+  }
+  .ba-content p {
+    font-size: 0.85rem;
+  }
+  .ba-nav button {
+    width: 32px;
+    height: 32px;
+    font-size: 1rem;
+  }
+}
+
+/* Tablets (481px – 768px) */
+@media (min-width: 481px) and (max-width: 768px) {
+  .ba-slide {
+    padding: 0 1rem;
+    gap: 1.5rem;
+  }
+  .ba-content h3 {
+    font-size: 1.75rem;
+  }
+  .ba-nav button {
+    width: 36px;
+    height: 36px;
+    font-size: 1.1rem;
+  }
+}
+
+/* Desktops (≥ 769px) */
+@media (min-width: 769px) {
+  .ba-slide {
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    padding: 0 2rem;
+  }
+  .ba-content h3 {
+    font-size: 2rem;
+  }
+  .ba-content p {
+    font-size: 1rem;
+  }
+  .ba-nav button {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+  }
+}
 
 /* FAQ Section */
+.faq-section { background-color: var(--color-bg-light); }
+.faq-container { max-width: 700px; margin: 0 auto; }
+.faq-item { border-bottom: 1px solid #eaf0ec; }
+.faq-question { display: flex; justify-content: space-between; align-items: center; padding: 1.1rem 0; cursor: pointer; font-weight: 600; font-size: 1rem; }
 .faq-question .icon { font-size: 1.1rem; color: var(--color-primary-green-medium); transition: transform 0.3s ease; }
+.faq-item.active .faq-question .icon { transform: rotate(45deg); }
+.faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.4s ease-in-out; }
+.faq-answer p { padding: 0 0 1.1rem 0; color: var(--color-text-medium); font-size: 0.9rem; }
 
 /* Services Pricing Section */
 .services-pricing-section { background-color: var(--color-bg-section-green); }
+.services-list { display: flex; flex-direction: column; gap: 1.3rem; max-width: 750px; margin: 0 auto; }
+.service-price-item { display: flex; flex-direction: column; background: var(--color-text-white); padding: 1.3rem; border-radius: 10px; box-shadow: var(--shadow-soft); transition: transform 0.3s ease, box-shadow 0.3s ease; }
+.service-price-item:hover { transform: translateY(-4px); box-shadow: var(--shadow-medium); }
+.service-info h4 { font-size: 1.1rem; font-weight: 600; color: var(--color-text-dark); }
+.service-info p { color: var(--color-text-medium); font-size: 0.85rem; margin-bottom: 0.8rem; }
+.service-booking { display: flex; justify-content: space-between; align-items: center; width: 100%; }
 .service-booking .price { font-size: 1.3rem; font-weight: 700; color: var(--color-primary-green-dark); }
+.services-pricing-show-more { text-align: center; margin-top: 2.5rem; }
 
 /* Contact Section */
+.contact-section { background-color: var(--color-bg-light); }
+.contact-container { display: grid; grid-template-columns: 1fr; gap: 1.8rem; background: var(--color-text-white); border-radius: 16px; overflow: hidden; box-shadow: var(--shadow-medium); }
 /* Updated gradient for contact info to tan theme */
 .contact-info { background: linear-gradient(135deg, var(--color-primary-green-dark), var(--color-primary-green-medium)); color: var(--color-text-white); padding: 2rem; }
+.contact-info h3 { font-size: 1.6rem; margin-bottom: 0.8rem; }
+.contact-info p { opacity: 0.9; margin-bottom: 1.3rem; font-size: 0.9rem; }
+.contact-details li { display: flex; align-items: center; margin-bottom: 0.8rem; opacity: 0.9; font-size: 0.9rem; }
+.contact-details li i { width: 18px; text-align: center; margin-right: 0.6rem; font-size: 1rem; }
+.contact-form-wrapper { padding: 2rem; }
+.contact-form-wrapper h3 { font-size: 1.6rem; margin-bottom: 1.3rem; color: var(--color-text-dark); }
+.contact-form .form-group { margin-bottom: 0.9rem; }
+.contact-form input, .contact-form textarea { width: 100%; padding: 0.8rem; border: 1px solid #e0e0e0; border-radius: 6px; font-family: inherit; font-size: 0.9rem; }
 /* Updated focus shadow for tan theme */
 .contact-form input:focus, .contact-form textarea:focus { border-color: var(--color-primary-green-medium); outline: none; box-shadow: 0 0 0 2px rgba(168, 130, 88, 0.15); }
+.contact-form textarea { resize: vertical; min-height: 90px; }
+
+/* Footer */
+.main-footer { background-color: var(--color-text-dark); color: rgba(255,255,255,0.65); padding: 2.5rem 0; text-align: center; }
+.footer-logo img { width: 45px; margin-bottom: 0.8rem; filter: brightness(0) invert(1) opacity(0.7); }
+.footer-links { margin-bottom: 0.8rem; }
+.footer-links a { margin: 0 0.6rem; color: rgba(255,255,255,0.65); font-size: 0.85rem; transition: color 0.3s ease; }
+.footer-links a:hover { color: var(--color-primary-green); }
+.footer-socials { margin-bottom: 1.3rem; }
+.footer-socials a { margin: 0 0.4rem; color: rgba(255,255,255,0.65); font-size: 1.1rem; transition: color 0.3s ease; }
+.footer-socials a:hover { color: var(--color-primary-green); }
+.footer-copyright { font-size: 0.8rem; }
+
+/* Tablet Styles (iPad portrait and similar) */
+@media (min-width: 768px) {
+  .desktop-nav { display: flex; }
+  .mobile-menu-toggle { display: none; }
+  .hero-content h1 { font-size: 3.2rem; }
+  .hero-content p.subtitle { font-size: 1.1rem; }
+  .section-title { font-size: 2.5rem; }
+  .services-masonry-grid { column-count: 2; }
+  
+  .treating-scars-container { grid-template-columns: 1fr; /* Keep single column for tablet for now, focus on image size */ text-align: center; }
+  .scar-treatment-content { grid-column: auto; margin-bottom: 2rem; }
+  .scar-treatment-visuals-wrapper { height: 45vh; /* Moderate height for tablet */ }
+  .scar-treatment-model {
+    height: 100%; /* TWEAK THIS for tablet image size - make it fill the wrapper */
+    max-width: 780px; /* TWEAK THIS for tablet image max width */
+  }
+  /* Semi-circular display still hidden on tablet by default, shown on desktop */
+
+  .review-card { min-width: 45%; max-width: 45%; }
+  .ba-slide { grid-template-columns: 1fr; /* Keep single column for slides on tablet */ }
+  .service-price-item { flex-direction: row; align-items: center; }
+  .service-info p { margin-bottom: 0; }
+  .contact-container { grid-template-columns: 1fr; } /* Keep stacked on tablet for simplicity */
+}
 
 /* Desktop Styles */
 @media (min-width: 1024px) {
-    /* Ensure feature text color is dark for readability against the white background */
-    .scar-feature-item .scar-feature-text { color: var(--color-text-dark); }
+  .hero-content h1 { font-size: 3.8rem; }
+  .section-title { font-size: 2.8rem; }
+  .services-masonry-grid { column-count: 3; }
+
+  /* RESTORED ORIGINAL DESKTOP GRID LAYOUT FOR TREATING SCARS */
+  .treating-scars-container { grid-template-columns: 5fr 7fr; text-align: left; align-items: center; gap: 2rem; }
+  .scar-treatment-content { grid-column: 1 / 2; order: 1; padding-right: 2rem; }
+  .scar-treatment-visuals-wrapper { grid-column: 2 / 3; order: 2; height: 65vh; /* Taller for desktop */ position: relative; }
+  .scar-treatment-model {
+    position: absolute;
+    top:60px;
+    height: 100%; /* TWEAK THIS for desktop image size - make it fill the wrapper */
+    max-width: 850px; /* TWEAK THIS for desktop image max width */
+    object-position: bottom center;
+    transform: translateX(-50%); /* Centered within its column */
+  }
+  /* RESTORED CURVED FEATURE LIST STYLES */
+  .scar-features-list-curved {
+    display: block;
+    position: absolute;
+    top: 50%;
+    right: 0; /* Position relative to the visuals wrapper */
+    transform: translateY(-50%);
+    width: auto; /* Let content define width */
+    height: auto;
+    z-index: 3;
+  }
+  .scar-features-list-curved .scar-feature-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem; /* Spacing between items */
+    position: relative; /* For pseudo-elements if needed for lines */
+    transform-origin: left center; /* For any potential rotation/curve effects if re-added */
+  }
+   /* Adjust positioning for 5 items to appear somewhat curved or stacked nicely */
+  .scar-features-list-curved .scar-feature-item:nth-child(1) { transform: translate(0, -80px); }
+  .scar-features-list-curved .scar-feature-item:nth-child(2) { transform: translate(20px, -40px); }
+  .scar-features-list-curved .scar-feature-item:nth-child(3) { transform: translate(30px, 0px); }
+  .scar-features-list-curved .scar-feature-item:nth-child(4) { transform: translate(20px, 40px); }
+  .scar-features-list-curved .scar-feature-item:nth-child(5) { transform: translate(0, 80px); }
+
+  .scar-feature-item .scar-feature-icon img {
+    width: 50px; /* Smaller icon */
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    margin-right: 0.8rem;
+    border: 2px solid var(--color-text-white);
+  }
+  .scar-feature-item .scar-feature-text {
+    background-color: var(--color-text-white);
+    padding: 0.6rem 1rem;
+    border-radius: 20px; /* Rounded rectangle */
+    box-shadow: 0 3px 10px rgba(0,0,0,0.07);
+    font-size: 0.8rem;
+    font-weight: 500;
+    white-space: nowrap;
+    color: var(--color-text-dark);
+  }
+
+  .review-slider-wrapper { overflow: visible; }
+  .review-card { min-width: 31%; max-width: 31%; } /* For 3 cards */
+  .review-card:not(.active) { transform: scale(0.92); opacity: 0.6; }
+  .ba-slide { grid-template-columns: repeat(2, 1fr); text-align: left; padding: 0; gap: 2.5rem; }
+  .ba-content { order: 1; } .ba-image-wrapper { order: 2; }
+  .contact-container { grid-template-columns: 5fr 7fr; gap: 2.5rem; }
+}
+@media (min-width: 1200px) {
+    .scar-treatment-model { max-width: 800px; } /* Slightly larger on very wide screens */
+
+    .scar-features-list-curved .scar-feature-item:nth-child(2) { transform: translate(25px, -50px); }
+    .scar-features-list-curved .scar-feature-item:nth-child(3) { transform: translate(40px, 0px); }
+    .scar-features-list-curved .scar-feature-item:nth-child(4) { transform: translate(25px, 50px); }
+    .scar-features-list-curved .scar-feature-item:nth-child(5) { transform: translate(0, 100px); }
 }
 
     </style>
@@ -202,7 +501,7 @@ img { max-width: 100%; height: auto; display: block; }
     <header class="main-header" id="mainHeader">
         <div class="container">
             <a href="#home" class="logo-container">
-                <!-- Logo URL -->
+                <!-- LOGO URL -->
                 <img src="https://vorv4jye8h09tbza.public.blob.vercel-storage.com/WhatsApp%20Image%202025-10-28%20at%2021.32.48_7ded4638.jpg" alt="Radiant Butter Logo" class="logo-img">
                 <span class="brand-name">Radiant Butter</span>
             </a>
@@ -238,7 +537,7 @@ img { max-width: 100%; height: auto; display: block; }
     <main class="main-content-wrapper">
         <section class="hero-section" id="home">
             <video autoplay loop muted playsinline class="hero-video">
-                <!-- Video URL -->
+                <!-- VIDEO URL -->
                 <source src="https://vorv4jye8h09tbza.public.blob.vercel-storage.com/gettyimages-2224442339-640_adpp.mp4" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
@@ -246,7 +545,7 @@ img { max-width: 100%; height: auto; display: block; }
             <div class="hero-content">
                 <div class="container">
                     <h1>Your Journey to <span class="highlight">Radiant Skin</span> Begins.</h1>
-                    <!-- Wording changed -->
+                    <!-- ORGANIC BODY CREAM TEXT -->
                     <p class="subtitle">Discover our organic body creams that nourish your skin and elevate your natural confidence. Experience the Radiant Butter difference.</p>
                     <button class="button-style">Shop Our Creams</button>
                 </div>
@@ -256,12 +555,12 @@ img { max-width: 100%; height: auto; display: block; }
         <section class="why-choose-us-section section-padding" id="why-choose-us">
             <div class="container">
                 <h2 class="section-title"><span>Why Radiant Butter?</span></h2>
-                <!-- Wording changed -->
+                <!-- ORGANIC BODY CREAM TEXT -->
                 <p class="section-subtitle">We are dedicated to providing exceptional nourishment and organic products, making your skin's well-being our top priority.</p>
                 <div class="why-choose-us-grid">
                     <div class="why-choose-us-item">
                         <div class="icon-container"><i class="fas fa-seedling"></i></div>
-                        <!-- Wording changed -->
+                        <!-- ORGANIC BODY CREAM TEXT -->
                         <h3>Natural Formulation</h3>
                         <ul>
                             <li>100% Organic Ingredients</li>
@@ -300,32 +599,44 @@ img { max-width: 100%; height: auto; display: block; }
         <section class="treating-scars-section" id="treating-scars">
             <div class="container treating-scars-container">
                 <div class="scar-treatment-content">
-                    <!-- Wording changed -->
+                    <!-- ORGANIC BODY CREAM TEXT -->
                     <p class="subtitle">Deep Skin Nourishment</p>
                     <h2><span>Achieve Your Natural Radiance</span></h2>
-                    <!-- Wording changed -->
-                    <p>Our advanced organic creams are designed to visibly reduce dryness, maintain complexion, and deeply moisturize, promoting smoother, healthier-looking skin.</p>
-                    <button class="button-style">Explore Our Collection</button>
+                    <!-- ORGANIC BODY CREAM TEXT -->
+                    <p>Our advanced organic creams are designed to visibly reduce dryness, maintain complexion, and deeply moisturize, promoting smoother, healthier-looking skin with long-lasting results.</p>
+                    
+                    <button class="button-style" style="margin-top: 0.5rem;">Explore Our Collection</button>
                 </div>
                 <div class="scar-treatment-visuals-wrapper">
+                    <!-- Image of the product model -->
                     <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/1000204358-removebg-preview-HglKkoBmrP1Z9yuSOcXQFHBKLD1w5P.png" alt="Woman with clear skin after scar treatment" class="scar-treatment-model">
+                    
+                    <!-- RESTORED CURVED FEATURE LIST HTML STRUCTURE -->
                     <div class="scar-features-list-curved">
-                        <!-- Wording changed to reflect cream benefits -->
                         <div class="scar-feature-item">
-                            <div class="scar-feature-icon"><i class="fas fa-check-circle"></i></div>
-                            <div class="scar-feature-text">100% Organic</div>
+                            <!-- Placeholder image/icon for "100% Organic" -->
+                            <div class="scar-feature-icon"><img src="/placeholder.svg?width=50&height=50&text=O" alt="Organic Icon"></div>
+                            <div class="scar-feature-text">100% Organic Ingredients</div>
                         </div>
                         <div class="scar-feature-item">
-                            <div class="scar-feature-icon"><i class="fas fa-check-circle"></i></div>
-                            <div class="scar-feature-text">Preservative-Free</div>
+                            <!-- Placeholder image/icon for "Preservative-Free" -->
+                            <div class="scar-feature-icon"><img src="/placeholder.svg?width=50&height=50&text=P" alt="Preservative Free Icon"></div>
+                            <div class="scar-feature-text">Preservative-Free Formula</div>
                         </div>
                         <div class="scar-feature-item">
-                            <div class="scar-feature-icon"><i class="fas fa-check-circle"></i></div>
-                            <div class="scar-feature-text">Ethically Sourced</div>
+                            <!-- Placeholder image/icon for "Ethically Sourced" -->
+                            <div class="scar-feature-icon"><img src="/placeholder.svg?width=50&height=50&text=E" alt="Ethical Icon"></div>
+                            <div class="scar-feature-text">Ethically Sourced Materials</div>
                         </div>
                         <div class="scar-feature-item">
-                            <div class="scar-feature-icon"><i class="fas fa-check-circle"></i></div>
-                            <div class="scar-feature-text">Intense Hydration</div>
+                            <!-- Placeholder image/icon for "Intense Hydration" -->
+                            <div class="scar-feature-icon"><img src="/placeholder.svg?width=50&height=50&text=H" alt="Hydration Icon"></div>
+                            <div class="scar-feature-text">Intense 24hr Hydration</div>
+                        </div>
+                        <div class="scar-feature-item">
+                            <!-- Placeholder image/icon for "Complexion" -->
+                            <div class="scar-feature-icon"><img src="/placeholder.svg?width=50&height=50&text=C" alt="Complexion Icon"></div>
+                            <div class="scar-feature-text">Maintains Complexion</div>
                         </div>
                     </div>
                 </div>
@@ -334,28 +645,28 @@ img { max-width: 100%; height: auto; display: block; }
 
         <section class="our-services-section section-padding" id="our-services">
             <div class="container">
-                <!-- Wording changed -->
+                <!-- ORGANIC BODY CREAM TEXT -->
                 <h2 class="section-title"><span>Our Product Categories</span></h2>
                 <p class="section-subtitle">Explore our curated selection of organic creams, each designed to provide a unique and nourishing experience.</p>
                 <div class="services-masonry-grid">
                     <div class="service-masonry-item">
                         <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/208603682-relaxed-plus-size-african-american-woman-having-beauty-face-mask-applied-to-face-at-spa-self-care.jpg-mdk1W0U3smRU8Y5OaqMC6nBXjFhewH.jpeg" alt="Body Cream">
-                        <!-- Wording changed -->
+                        <!-- ORGANIC BODY CREAM TEXT -->
                         <div class="overlay"><h4>Signature Body Cream</h4><p>Deep moisturizing for all-day radiance.</p></div>
                     </div>
                     <div class="service-masonry-item">
                         <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/1000_F_551357290_om6bO7tEULWs9Li7HFRoSwfmGMLfbXaT-5X7UpQqfqh0CLbDj1259AmiqBJCzjM.webp" alt="Face Cream">
-                        <!-- Wording changed -->
+                        <!-- ORGANIC BODY CREAM TEXT -->
                         <div class="overlay"><h4>Revitalizing Face Balm</h4><p>Lightweight and pure formula for delicate facial skin.</p></div>
                     </div>
                     <div class="service-masonry-item">
                         <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/pretty-smiling-woman-looks-right-side-stands-wrapped-towel-with-naked-shoulders-wears-shower-hat-enjoys-taking-bath-relaxation.jpg-NfqVS6XOPd1pvSwDlsNPzmCKxPpjk6.jpeg" alt="Hand & Foot Cream">
-                        <!-- Wording changed -->
+                        <!-- ORGANIC BODY CREAM TEXT -->
                         <div class="overlay"><h4>Nourishing Hand & Foot Cream</h4><p>Targeted repair for hands and feet.</p></div>
                     </div>
                      <div class="service-masonry-item">
                         <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/images%20-%202025-06-05T121734.468-w1XCDWtTxZgPzZwN1WpJxY3S20Wn1n.jpeg" alt="Men's Cream">
-                        <!-- Wording changed -->
+                        <!-- ORGANIC BODY CREAM TEXT -->
                         <div class="overlay"><h4>Gentlemen's Hydration Cream</h4><p>Tailored, non-greasy organic skincare for men.</p></div>
                     </div>
                 </div>
@@ -365,6 +676,7 @@ img { max-width: 100%; height: auto; display: block; }
         <section class="reviews-section section-padding" id="reviews">
             <div class="container">
                 <h2 class="section-title"><span>Words From Our Clients</span></h2>
+                <!-- BRAND NAME -->
                 <p class="section-subtitle">Discover why our clients trust Radiant Butter for their organic skincare journey. Real experiences, real transformations.</p>
                 <div class="review-slider-container">
                     <div class="review-slider-wrapper">
@@ -383,15 +695,16 @@ img { max-width: 100%; height: auto; display: block; }
         <section class="before-after-section section-padding" id="before-after">
             <div class="container">
                 <h2 class="section-title">See The Transformation</h2>
+                <!-- ORGANIC BODY CREAM TEXT -->
                 <p class="section-subtitle">Witness the remarkable results our clients achieve through our organic, nourishing creams and products.</p>
                 <div class="ba-slider-container">
                     <div class="ba-slider" id="baSlider">
                         <div class="ba-slide">
                             <div class="ba-content">
-                                <!-- Wording changed -->
+                                <!-- ORGANIC BODY CREAM TEXT -->
                                 <p class="subtitle">Dryness Repair Program</p>
                                 <h3>Healed, Hydrated Skin</h3>
-                                <!-- Wording changed -->
+                                <!-- ORGANIC BODY CREAM TEXT -->
                                 <p>This client used our **Signature Body Cream** daily for 4 weeks, resulting in visibly reduced flakiness and completely restored moisture barrier function.</p>
                                 <button class="button-style">Shop This Cream</button>
                             </div>
@@ -399,10 +712,10 @@ img { max-width: 100%; height: auto; display: block; }
                         </div>
                         <div class="ba-slide">
                             <div class="ba-content">
-                                <!-- Wording changed -->
+                                <!-- ORGANIC BODY CREAM TEXT -->
                                 <p class="subtitle">Complexion & Tone Solution</p>
                                 <h3>Even & Radiant Tone</h3>
-                                <!-- Wording changed -->
+                                <!-- ORGANIC BODY CREAM TEXT -->
                                 <p>Consistent daily use of our **Revitalizing Face Balm** helped this client achieve a visibly brighter and more even skin complexion in just 2 months.</p>
                                 <button class="button-style">Shop Face Balm</button>
                             </div>
@@ -421,7 +734,7 @@ img { max-width: 100%; height: auto; display: block; }
         <section class="faq-section section-padding" id="faq">
             <div class="container">
                 <h2 class="section-title"><span>Your Questions Answered</span></h2>
-                <!-- Wording changed -->
+                <!-- ORGANIC BODY CREAM TEXT -->
                 <p class="section-subtitle">Find quick answers to common queries about our organic creams, ingredients, and what to expect from our brand.</p>
                 <div class="faq-container" id="faqContainer">
                     <!-- JS populates this -->
@@ -432,12 +745,12 @@ img { max-width: 100%; height: auto; display: block; }
         <section class="services-pricing-section section-padding" id="services-pricing">
             <div class="container">
                 <h2 class="section-title"><span>Invest in Your Skin</span></h2>
-                <!-- Wording changed -->
+                <!-- ORGANIC BODY CREAM TEXT -->
                 <p class="section-subtitle">Explore our popular products and their pricing. We believe in transparent and fair value for exceptional organic skincare.</p>
                 <div class="services-list">
                     <div class="service-price-item">
                         <div class="service-info">
-                            <!-- Wording changed -->
+                            <!-- ORGANIC BODY CREAM TEXT -->
                             <h4>Radiant Butter Signature Body Cream (500ml)</h4>
                             <p>A comprehensive, deep-moisturizing body cream tailored for long-lasting hydration. Includes essential organic oils for smooth skin.</p>
                         </div>
@@ -448,7 +761,7 @@ img { max-width: 100%; height: auto; display: block; }
                     </div>
                     <div class="service-price-item">
                         <div class="service-info">
-                            <!-- Wording changed -->
+                            <!-- ORGANIC BODY CREAM TEXT -->
                             <h4>Revitalizing Face Balm (100ml)</h4>
                             <p>An advanced, lightweight daily face product. Stimulates natural radiance and improves overall skin texture using non-comedogenic ingredients.</p>
                         </div>
@@ -459,7 +772,7 @@ img { max-width: 100%; height: auto; display: block; }
                     </div>
                     <div class="service-price-item">
                         <div class="service-info">
-                            <!-- Wording changed -->
+                            <!-- ORGANIC BODY CREAM TEXT -->
                             <h4>Nourishing Hand & Foot Cream (150ml)</h4>
                             <p>A specialized cream to soothe and protect dry hands and feet from cracking and daily exposure. Intensive repair formula.</p>
                         </div>
@@ -478,16 +791,17 @@ img { max-width: 100%; height: auto; display: block; }
         <section class="contact-section section-padding" id="contact">
             <div class="container">
                  <h2 class="section-title"><span>Connect With Us</span></h2>
-                <!-- Wording changed -->
+                <!-- BRAND NAME -->
                 <p class="section-subtitle">Ready to start your journey to healthier, glowing skin? Reach out to us today. We're excited to welcome you to Radiant Butter.</p>
                 <div class="contact-container">
                     <div class="contact-info">
                         <h3>Visit or Call Us</h3>
-                        <!-- Wording changed -->
+                        <!-- ORGANIC BODY CREAM TEXT -->
                         <p>Our team is available to answer your questions and help you with your organic cream order or inquiry.</p>
                         <ul style="list-style: none; padding:0;">
                             <li><i class="fas fa-map-marker-alt"></i>123 Serenity Lane, Blissville, NG</li>
                             <li><i class="fas fa-phone-alt"></i>+234 800 123 4567</li>
+                            <!-- EMAIL FIX -->
                             <li><i class="fas fa-envelope"></i>hello@radiantbutter.com</li>
                             <li><i class="fas fa-clock"></i>Mon - Sat: 9 AM - 7 PM</li>
                         </ul>
@@ -510,6 +824,7 @@ img { max-width: 100%; height: auto; display: block; }
     <footer class="main-footer">
         <div class="container">
             <div class="footer-logo">
+                <!-- LOGO URL -->
                 <img src="https://vorv4jye8h09tbza.public.blob.vercel-storage.com/WhatsApp%20Image%202025-10-28%20at%2021.32.48_7ded4638.jpg" alt="Radiant Butter Logo">
             </div>
             <div class="footer-links">
@@ -523,6 +838,7 @@ img { max-width: 100%; height: auto; display: block; }
                 <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
                 <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
             </div>
+            <!-- BRAND NAME FIX -->
             <p class="footer-copyright">&copy; <span id="currentYear"></span> Radiant Butter. All Rights Reserved. Crafted with Care.</p>
         </div>
     </footer>
@@ -534,7 +850,7 @@ img { max-width: 100%; height: auto; display: block; }
         if (!msgEl) {
             msgEl = document.createElement('p');
             msgEl.className = 'form-message';
-            // Using the new tan theme colors for the success message
+            // Using the tan theme colors for the success message
             msgEl.style.cssText = `
                 padding: 0.8rem; 
                 margin-top: 1rem; 
@@ -625,6 +941,7 @@ img { max-width: 100%; height: auto; display: block; }
         // --- Review Slider ---
         const reviewSliderEl = document.getElementById('reviewSlider');
         if (reviewSliderEl) {
+            // Updated reviews data to match product focus
             const reviewsData = [
                 { avatar: "/placeholder.svg?width=80&height=80&text=J.M", name: "Jessica M.", text: "Absolutely loved my experience! My skin feels rejuvenated and looks amazing. The creams are so rich and effective." },
                 { avatar: "/placeholder.svg?width=80&height=80&text=D.K", name: "David K.", text: "A truly professional and high-quality product. The Gentlemen's Hydration Cream was fantastic. I left feeling refreshed." },
@@ -731,6 +1048,7 @@ img { max-width: 100%; height: auto; display: block; }
         // --- FAQ Accordion ---
         const faqContainer = document.getElementById('faqContainer');
         if (faqContainer) {
+            // Updated FAQs data to match product focus
             const faqs = [
                 { q: "What is the key benefit of Radiant Butter creams?", a: "Our focus is deep, lasting moisturization, complexion maintenance, and pure, organic ingredients. Every product is 100% organic and preservative-free." },
                 { q: "Are your products suitable for sensitive skin?", a: "Yes, our organic creams are formulated to be gentle and nourishing, suitable for all skin types, including sensitive skin. We use high-quality, natural ingredients." },
@@ -771,7 +1089,7 @@ img { max-width: 100%; height: auto; display: block; }
         if(contactForm) {
             contactForm.addEventListener('submit', function(e) {
                 e.preventDefault();
-                // Custom message instead of alert()
+                // Function to show custom message instead of alert()
                 showFormMessage(this, 'Thank you for your message! We will get back to you soon.', false); 
                 this.reset();
             });
