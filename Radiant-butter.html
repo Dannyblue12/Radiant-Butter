@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Radiant Butter - Embrace Your Glow</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+      /* CSS Variables - SWITCHED TO CARAMEL/TAN THEME */
+:root {
+  --font-primary: "Poppins", sans-serif;
+  
+  /* NEW CARAMEL/TAN COLORS */
+  --color-text-dark: #2a1f13; /* Dark Brown/Coffee for primary text */
+  --color-text-medium: #544435;
+  --color-text-light: #8b7d70;
+  --color-text-white: #ffffff;
+  
+  --color-primary-accent: #C09D73; /* Medium Tan/Gold - Primary Accent */
+  --color-primary-accent-medium: #A88258; /* Darker Tan */
+  --color-primary-accent-dark: #8F6E49; /* Deep Caramel */
+  
+  /* Using new colors via old variable names for consistency in existing CSS rules */
+  --color-primary-green: var(--color-primary-accent); 
+  --color-primary-green-medium: var(--color-primary-accent-medium);
+  --color-primary-green-dark: var(--color-primary-accent-dark);
+  
+  --color-bg-light: #FBF8F4; /* Light Cream Background */
+  --color-bg-section-green: #F7F4F0; /* Lighter Cream for specific sections */
+  
+  --color-bg-white: #ffffff; 
+  --color-hero-overlay: rgba(0, 0, 0, 0.55); 
+  --button-border-radius: 50px;
+  /* Updated shadow to reflect new color */
+  --shadow-soft: 0 6px 20px rgba(168, 130, 88, 0.1); 
+  --shadow-medium: 0 10px 30px rgba(168, 130, 88, 0.15); 
+  --base-font-size: 15px; 
+}
+
+/* Global Styles & Resets */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; font-size: var(--base-font-size); }
+body { font-family: var(--font-primary); line-height: 1.65; color: var(--color-text-dark); background-color: var(--color-bg-light); overflow-x: hidden; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+.container { width: 90%; max-width: 1160px; margin: 0 auto; }
+a { text-decoration: none; color: inherit; }
+img { max-width: 100%; height: auto; display: block; }
+
+.button-style {
+  font-family: inherit; cursor: pointer; border: none; padding: 0.75rem 1.8rem; 
+  border-radius: var(--button-border-radius); transition: all 0.3s ease;
+  display: inline-block; text-align: center; font-weight: 600;
+  color: var(--color-text-white);
+  /* Updated gradient to tan/caramel tones */
+  background-image: linear-gradient(135deg, var(--color-primary-green-medium), var(--color-primary-green-dark));
+  box-shadow: var(--shadow-soft);
+  text-transform: uppercase; letter-spacing: 0.7px; font-size: 0.85rem; 
+}
+.button-style:hover { transform: translateY(-3px) scale(1.02); box-shadow: var(--shadow-medium); }
+
+.button-outline {
+  background: transparent; border: 2px solid var(--color-primary-green-medium);
+  color: var(--color-primary-green-dark);
+  padding: 0.65rem 1.7rem; 
+}
+.button-outline:hover { background-color: var(--color-primary-green-medium); color: var(--color-text-white); }
+
+.section-padding { padding: 4rem 0; } 
+.section-title { font-size: 2.2rem; color: var(--color-text-dark); text-align: center; margin-bottom: 0.75rem; font-weight: 700; }
+.section-title span { display: inline-block; position: relative; padding-bottom: 0.6rem; }
+.section-title span::after { content: ""; position: absolute; left: 50%; transform: translateX(-50%); bottom: 0; width: 70px; height: 3px; background-color: var(--color-primary-green-medium); border-radius: 2px; }
+.section-subtitle { text-align: center; color: var(--color-text-medium); font-size: 1rem; margin-bottom: 2.5rem; max-width: 550px; margin-left: auto; margin-right: auto; }
+.main-content-wrapper { position: relative; z-index: 1; }
+
+/* Header & Nav */
+.main-header { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 0.8rem 0; transition: background-color 0.3s ease, box-shadow 0.3s ease, padding 0.3s ease; }
+.main-header.scrolled { background-color: rgba(255, 255, 255, 0.97); backdrop-filter: blur(8px); box-shadow: 0 2px 12px rgba(0,0,0,0.06); padding: 0.6rem 0; }
+.main-header.scrolled .brand-name, .main-header.scrolled .desktop-nav a { color: var(--color-text-dark); }
+.main-header.scrolled .logo-img { filter: none; }
+.main-header.scrolled .desktop-nav a.active { color: var(--color-primary-green-dark); }
+.main-header.scrolled .mobile-menu-toggle { color: var(--color-text-dark); }
+.main-header .container { display: flex; justify-content: space-between; align-items: center; }
+.logo-container { display: flex; align-items: center; }
+.logo-img { width: 36px; height: 36px; margin-right: 0.6rem; transition: filter 0.3s ease; filter: none; } 
+.brand-name { font-size: 1.6rem; font-weight: 700; color: var(--color-text-white); letter-spacing: 0.5px; transition: color 0.3s ease; }
+.desktop-nav { display: none; }
+.desktop-nav a { margin-left: 1.8rem; font-size: 0.85rem; text-transform: uppercase; color: var(--color-text-white); font-weight: 500; letter-spacing: 0.4px; transition: color 0.3s ease; position: relative; padding-bottom: 0.4rem; }
+.desktop-nav a::after { content: ""; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 0; height: 2px; background-color: var(--color-primary-green-medium); transition: width 0.3s ease; }
+.desktop-nav a.active::after, .desktop-nav a:hover::after { width: 50%; }
+.desktop-nav a.active { color: var(--color-primary-green-medium); }
+.main-header.scrolled .desktop-nav a.active { color: var(--color-primary-green-dark); }
+.mobile-menu-toggle { display: block; background: none; border: none; color: var(--color-text-white); font-size: 1.6rem; cursor: pointer; z-index: 1002; transition: color 0.3s ease; }
+.mobile-nav { position: fixed; top: 0; right: -100%; width: 260px; height: 100vh; background-color: var(--color-text-dark); z-index: 1001; padding: 4rem 1.5rem 1.5rem; display: flex; flex-direction: column; transition: right 0.4s cubic-bezier(0.23, 1, 0.32, 1); box-shadow: -4px 0 20px rgba(0,0,0,0.1); }
+.mobile-nav.active { right: 0; }
+.mobile-menu-close { position: absolute; top: 1.2rem; right: 1.2rem; background: none; color: var(--color-text-white); font-size: 1.4rem; border: none; cursor: pointer; }
+.mobile-nav a { color: var(--color-text-white); padding: 0.7rem 0; font-size: 1rem; font-weight: 500; width: 100%; text-align: left; transition: color 0.3s ease; border-bottom: 1px solid rgba(255,255,255,0.08); }
+.mobile-nav a:hover, .mobile-nav a.active { color: var(--color-primary-green); }
+.mobile-nav .button-style { margin-top: 1.5rem; width: 100%; }
+
+/* Hero Section */
+.hero-section { position: relative; height: 100vh; width: 100%; overflow: hidden; display: flex; align-items: flex-end; justify-content: flex-start; }
+.hero-video { position: absolute; top: 50%; left: 50%; width: 100%; height: 100%; object-fit: cover; transform: translate(-50%, -50%); z-index: -1; }
+.video-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: var(--color-hero-overlay); z-index: 0; }
+.hero-content { position: relative; z-index: 1; color: var(--color-text-white); padding: 0 0 4rem 0; width: 100%; }
+.hero-content .container { text-align: left; }
+.hero-content h1 { font-size: 2.6rem; font-weight: 700; line-height: 1.25; margin-bottom: 0.8rem; max-width: 500px; text-shadow: 0 2px 8px rgba(0,0,0,0.3); }
+.hero-content h1 .highlight { color: var(--color-primary-green); }
+.hero-content p.subtitle { font-size: 1rem; font-weight: 300; margin-bottom: 1.8rem; max-width: 450px; line-height: 1.7; opacity: 0.9; }
+
+/* Why Choose Us Section - Renamed to Our Principles */
+.why-choose-us-section { background-color: var(--color-bg-light); }
+.why-choose-us-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.8rem; }
+.why-choose-us-item { background-color: var(--color-text-white); border-radius: 12px; box-shadow: var(--shadow-soft); padding: 1.8rem; text-align: center; }
+.why-choose-us-item .icon-container { font-size: 2.2rem; color: var(--color-primary-green-medium); margin-bottom: 0.8rem; }
+.why-choose-us-item h3 { font-size: 1.2rem; font-weight: 600; margin-bottom: 0.8rem; }
+.why-choose-us-item ul { list-style: none; padding: 0; text-align: left; }
+.why-choose-us-item ul li { padding-left: 1.3rem; position: relative; margin-bottom: 0.5rem; color: var(--color-text-medium); font-size: 0.9rem; }
+.why-choose-us-item ul li::before { content: '•'; position: absolute; left: 0; top: 0; color: var(--color-primary-green-medium); font-weight: bold; font-size: 1.1em; line-height: 1; }
+.why-choose-us-item .learn-more-text { display: block; margin-top: 1.3rem; font-weight: 600; color: var(--color-primary-green-dark); cursor: pointer; font-size: 0.85rem; }
+.why-choose-us-item .learn-more-text:hover { text-decoration: underline; }
+.why-choose-us-show-more { text-align: center; margin-top: 2.5rem; }
+
+/* Treating Scars Section - Renamed to Product Focus */
+.treating-scars-section { background-color: var(--color-bg-section-green); position: relative; overflow: hidden; min-height: auto; padding: 4rem 0; }
+/* Updated radial gradient color for tan theme */
+.treating-scars-section::before { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(ellipse at 20% 80%, rgba(192, 157, 115, 0.2), transparent 65%); z-index: 0; }
+.treating-scars-container { position: relative; z-index: 1; display: grid; grid-template-columns: 1fr; align-items: center; text-align: center; }
+.scar-treatment-content { margin-bottom: 2rem; }
+.scar-treatment-content .subtitle { font-size: 0.9rem; color: var(--color-primary-green-dark); font-weight: 600; text-transform: uppercase; margin-bottom: 0.4rem; }
+.scar-treatment-content h2 { font-size: 2.4rem; font-weight: 700; margin-bottom: 0.8rem; line-height: 1.25; }
+.scar-treatment-content p { font-size: 1rem; color: var(--color-text-medium); margin-bottom: 1.8rem; max-width: 550px; margin-left: auto; margin-right: auto; }
+.scar-treatment-visuals-wrapper { position: relative; width: 100%; height: 40vh; margin-top: 1rem; }
+.scar-treatment-model {
+    position: absolute;
+    top: 59px;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 700px;
+    height: 100%; 
+    max-width: 790px; 
+    object-fit: contain;
+    object-position: bottom;
+}
+.scar-features-list-curved { display: none; } 
+
+/* Our Services Masonry - Renamed to Products */
+.our-services-section { background-color: var(--color-bg-light); }
+.services-masonry-grid { column-count: 1; column-gap: 1.2rem; }
+.service-masonry-item { margin-bottom: 1.2rem; break-inside: avoid; position: relative; overflow: hidden; border-radius: 10px; box-shadow: var(--shadow-soft); }
+.service-masonry-item img { width: 100%; display: block; transition: transform 0.4s ease; }
+.service-masonry-item:hover img { transform: scale(1.05); }
+.service-masonry-item .overlay { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(42, 31, 19, 0.85) 0%, transparent 100%); padding: 1.2rem 0.8rem; color: var(--color-text-white); }
+.service-masonry-item .overlay h4 { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.2rem; }
+.service-masonry-item .overlay p { font-size: 0.85rem; opacity: 0.9; }
+
+/* Reviews Section */
+.reviews-section { background-color: var(--color-bg-white); } 
+/* Updated border color for tan theme */
+.review-card img.reviewer-avatar { width: 60px; height: 60px; border-radius: 50%; margin: 0 auto 0.8rem auto; border: 2px solid var(--color-primary-green); }
+/* Updated quote color for tan theme */
+.review-card .review-text::before, .review-card .review-text::after { color: var(--color-primary-green); font-size: 1.8rem; line-height: 0; vertical-align: -0.3em; }
+
+/* Before & After Section */
+.before-after-section {
+  /* Updated gradient background for tan theme */
+  background: linear-gradient(135deg, var(--color-bg-section-green), #f0e6d6);
+  padding: 3.5rem 0;
+}
+.ba-content .subtitle {
+  font-weight: 600;
+  color: var(--color-primary-green-dark);
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+/* FAQ Section */
+.faq-question .icon { font-size: 1.1rem; color: var(--color-primary-green-medium); transition: transform 0.3s ease; }
+
+/* Services Pricing Section */
+.services-pricing-section { background-color: var(--color-bg-section-green); }
+.service-booking .price { font-size: 1.3rem; font-weight: 700; color: var(--color-primary-green-dark); }
+
+/* Contact Section */
+/* Updated gradient for contact info to tan theme */
+.contact-info { background: linear-gradient(135deg, var(--color-primary-green-dark), var(--color-primary-green-medium)); color: var(--color-text-white); padding: 2rem; }
+/* Updated focus shadow for tan theme */
+.contact-form input:focus, .contact-form textarea:focus { border-color: var(--color-primary-green-medium); outline: none; box-shadow: 0 0 0 2px rgba(168, 130, 88, 0.15); }
+
+/* Desktop Styles */
+@media (min-width: 1024px) {
+    /* Ensure feature text color is dark for readability against the white background */
+    .scar-feature-item .scar-feature-text { color: var(--color-text-dark); }
+}
+
+    </style>
+</head>
+<body>
+    <header class="main-header" id="mainHeader">
+        <div class="container">
+            <a href="#home" class="logo-container">
+                <!-- Logo URL -->
+                <img src="https://vorv4jye8h09tbza.public.blob.vercel-storage.com/WhatsApp%20Image%202025-10-28%20at%2021.32.48_7ded4638.jpg" alt="Radiant Butter Logo" class="logo-img">
+                <span class="brand-name">Radiant Butter</span>
+            </a>
+            <nav class="desktop-nav">
+                <a href="#home" class="nav-link active">Home</a>
+                <a href="#why-choose-us" class="nav-link">Our Principles</a>
+                <a href="#treating-scars" class="nav-link">Our Focus</a>
+                <a href="#our-services" class="nav-link">Products</a>
+                <a href="#reviews" class="nav-link">Reviews</a>
+                <a href="#before-after" class="nav-link">Results</a>
+                <a href="#faq" class="nav-link">FAQs</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </nav>
+            <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Open navigation menu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <nav class="mobile-nav" id="mobileNav">
+        <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close navigation menu"><i class="fas fa-times"></i></button>
+        <a href="#home" class="nav-link active">Home</a>
+        <a href="#why-choose-us" class="nav-link">Our Principles</a>
+        <a href="#treating-scars" class="nav-link">Our Focus</a>
+        <a href="#our-services" class="nav-link">Products</a>
+        <a href="#reviews" class="nav-link">Reviews</a>
+        <a href="#before-after" class="nav-link">Results</a>
+        <a href="#faq" class="nav-link">FAQs</a>
+        <a href="#contact" class="nav-link">Contact</a>
+        <button class="button-style" style="margin-top:1.5rem;">Shop Now</button>
+    </nav>
+
+    <main class="main-content-wrapper">
+        <section class="hero-section" id="home">
+            <video autoplay loop muted playsinline class="hero-video">
+                <!-- Video URL -->
+                <source src="https://vorv4jye8h09tbza.public.blob.vercel-storage.com/gettyimages-2224442339-640_adpp.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div class="video-overlay"></div>
+            <div class="hero-content">
+                <div class="container">
+                    <h1>Your Journey to <span class="highlight">Radiant Skin</span> Begins.</h1>
+                    <!-- Wording changed -->
+                    <p class="subtitle">Discover our organic body creams that nourish your skin and elevate your natural confidence. Experience the Radiant Butter difference.</p>
+                    <button class="button-style">Shop Our Creams</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="why-choose-us-section section-padding" id="why-choose-us">
+            <div class="container">
+                <h2 class="section-title"><span>Why Radiant Butter?</span></h2>
+                <!-- Wording changed -->
+                <p class="section-subtitle">We are dedicated to providing exceptional nourishment and organic products, making your skin's well-being our top priority.</p>
+                <div class="why-choose-us-grid">
+                    <div class="why-choose-us-item">
+                        <div class="icon-container"><i class="fas fa-seedling"></i></div>
+                        <!-- Wording changed -->
+                        <h3>Natural Formulation</h3>
+                        <ul>
+                            <li>100% Organic Ingredients</li>
+                            <li>Complexion Maintenance</li>
+                            <li>Deep Moisturization</li>
+                        </ul>
+                        <span class="learn-more-text">Discover Ingredients &rarr;</span>
+                    </div>
+                    <div class="why-choose-us-item">
+                        <div class="icon-container"><i class="fas fa-hand-holding-heart"></i></div>
+                        <h3>Family Friendly Price</h3>
+                        <ul>
+                            <li>Premium products, fair value</li>
+                            <li>Transparent pricing</li>
+                            <li>Accessible organic care</li>
+                        </ul>
+                        <span class="learn-more-text">View Pricing &rarr;</span>
+                    </div>
+                    <div class="why-choose-us-item">
+                        <div class="icon-container"><i class="fas fa-shield-alt"></i></div>
+                        <h3>Pure & Safe</h3>
+                        <ul>
+                            <li>Preservative-free production</li>
+                            <li>Ethically sourced materials</li>
+                            <li>Your health is paramount</li>
+                        </ul>
+                        <span class="learn-more-text">Our Promise &rarr;</span>
+                    </div>
+                </div>
+                <div class="why-choose-us-show-more">
+                    <button class="button-style button-outline">Know More About Us</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="treating-scars-section" id="treating-scars">
+            <div class="container treating-scars-container">
+                <div class="scar-treatment-content">
+                    <!-- Wording changed -->
+                    <p class="subtitle">Deep Skin Nourishment</p>
+                    <h2><span>Achieve Your Natural Radiance</span></h2>
+                    <!-- Wording changed -->
+                    <p>Our advanced organic creams are designed to visibly reduce dryness, maintain complexion, and deeply moisturize, promoting smoother, healthier-looking skin.</p>
+                    <button class="button-style">Explore Our Collection</button>
+                </div>
+                <div class="scar-treatment-visuals-wrapper">
+                    <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/1000204358-removebg-preview-HglKkoBmrP1Z9yuSOcXQFHBKLD1w5P.png" alt="Woman with clear skin after scar treatment" class="scar-treatment-model">
+                    <div class="scar-features-list-curved">
+                        <!-- Wording changed to reflect cream benefits -->
+                        <div class="scar-feature-item">
+                            <div class="scar-feature-icon"><i class="fas fa-check-circle"></i></div>
+                            <div class="scar-feature-text">100% Organic</div>
+                        </div>
+                        <div class="scar-feature-item">
+                            <div class="scar-feature-icon"><i class="fas fa-check-circle"></i></div>
+                            <div class="scar-feature-text">Preservative-Free</div>
+                        </div>
+                        <div class="scar-feature-item">
+                            <div class="scar-feature-icon"><i class="fas fa-check-circle"></i></div>
+                            <div class="scar-feature-text">Ethically Sourced</div>
+                        </div>
+                        <div class="scar-feature-item">
+                            <div class="scar-feature-icon"><i class="fas fa-check-circle"></i></div>
+                            <div class="scar-feature-text">Intense Hydration</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="our-services-section section-padding" id="our-services">
+            <div class="container">
+                <!-- Wording changed -->
+                <h2 class="section-title"><span>Our Product Categories</span></h2>
+                <p class="section-subtitle">Explore our curated selection of organic creams, each designed to provide a unique and nourishing experience.</p>
+                <div class="services-masonry-grid">
+                    <div class="service-masonry-item">
+                        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/208603682-relaxed-plus-size-african-american-woman-having-beauty-face-mask-applied-to-face-at-spa-self-care.jpg-mdk1W0U3smRU8Y5OaqMC6nBXjFhewH.jpeg" alt="Body Cream">
+                        <!-- Wording changed -->
+                        <div class="overlay"><h4>Signature Body Cream</h4><p>Deep moisturizing for all-day radiance.</p></div>
+                    </div>
+                    <div class="service-masonry-item">
+                        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/1000_F_551357290_om6bO7tEULWs9Li7HFRoSwfmGMLfbXaT-5X7UpQqfqh0CLbDj1259AmiqBJCzjM.webp" alt="Face Cream">
+                        <!-- Wording changed -->
+                        <div class="overlay"><h4>Revitalizing Face Balm</h4><p>Lightweight and pure formula for delicate facial skin.</p></div>
+                    </div>
+                    <div class="service-masonry-item">
+                        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/pretty-smiling-woman-looks-right-side-stands-wrapped-towel-with-naked-shoulders-wears-shower-hat-enjoys-taking-bath-relaxation.jpg-NfqVS6XOPd1pvSwDlsNPzmCKxPpjk6.jpeg" alt="Hand & Foot Cream">
+                        <!-- Wording changed -->
+                        <div class="overlay"><h4>Nourishing Hand & Foot Cream</h4><p>Targeted repair for hands and feet.</p></div>
+                    </div>
+                     <div class="service-masonry-item">
+                        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/images%20-%202025-06-05T121734.468-w1XCDWtTxZgPzZwN1WpJxY3S20Wn1n.jpeg" alt="Men's Cream">
+                        <!-- Wording changed -->
+                        <div class="overlay"><h4>Gentlemen's Hydration Cream</h4><p>Tailored, non-greasy organic skincare for men.</p></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="reviews-section section-padding" id="reviews">
+            <div class="container">
+                <h2 class="section-title"><span>Words From Our Clients</span></h2>
+                <p class="section-subtitle">Discover why our clients trust Radiant Butter for their organic skincare journey. Real experiences, real transformations.</p>
+                <div class="review-slider-container">
+                    <div class="review-slider-wrapper">
+                        <div class="review-slider" id="reviewSlider">
+                            <!-- JS populates this -->
+                        </div>
+                    </div>
+                    <div class="slider-nav">
+                        <button id="prevReview" class="button-style button-outline" aria-label="Previous review"><i class="fas fa-arrow-left"></i></button>
+                        <button id="nextReview" class="button-style button-outline" aria-label="Next review"><i class="fas fa-arrow-right"></i></button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="before-after-section section-padding" id="before-after">
+            <div class="container">
+                <h2 class="section-title">See The Transformation</h2>
+                <p class="section-subtitle">Witness the remarkable results our clients achieve through our organic, nourishing creams and products.</p>
+                <div class="ba-slider-container">
+                    <div class="ba-slider" id="baSlider">
+                        <div class="ba-slide">
+                            <div class="ba-content">
+                                <!-- Wording changed -->
+                                <p class="subtitle">Dryness Repair Program</p>
+                                <h3>Healed, Hydrated Skin</h3>
+                                <!-- Wording changed -->
+                                <p>This client used our **Signature Body Cream** daily for 4 weeks, resulting in visibly reduced flakiness and completely restored moisture barrier function.</p>
+                                <button class="button-style">Shop This Cream</button>
+                            </div>
+                            <div class="ba-image-wrapper"><img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/images%20-%202025-06-09T130009.010-OpUEe5ALZWeWHCo0HrCpQfg6VURNuF.jpeg" alt="Before and after dryness treatment"></div>
+                        </div>
+                        <div class="ba-slide">
+                            <div class="ba-content">
+                                <!-- Wording changed -->
+                                <p class="subtitle">Complexion & Tone Solution</p>
+                                <h3>Even & Radiant Tone</h3>
+                                <!-- Wording changed -->
+                                <p>Consistent daily use of our **Revitalizing Face Balm** helped this client achieve a visibly brighter and more even skin complexion in just 2 months.</p>
+                                <button class="button-style">Shop Face Balm</button>
+                            </div>
+                            <div class="ba-image-wrapper"><img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/images%20-%202025-06-09T125952.324-RbptsCQQxjp7n20mJrxBqdCJAwFYB1.jpeg" alt="Before and after hyperpigmentation treatment"></div>
+                        </div>
+                    </div>
+                    <div class="ba-nav">
+                        <button id="prevBaSlide" aria-label="Previous Transformation"><i class="fas fa-chevron-left"></i></button>
+                        <button id="nextBaSlide" aria-label="Next Transformation"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <section class="faq-section section-padding" id="faq">
+            <div class="container">
+                <h2 class="section-title"><span>Your Questions Answered</span></h2>
+                <!-- Wording changed -->
+                <p class="section-subtitle">Find quick answers to common queries about our organic creams, ingredients, and what to expect from our brand.</p>
+                <div class="faq-container" id="faqContainer">
+                    <!-- JS populates this -->
+                </div>
+            </div>
+        </section>
+
+        <section class="services-pricing-section section-padding" id="services-pricing">
+            <div class="container">
+                <h2 class="section-title"><span>Invest in Your Skin</span></h2>
+                <!-- Wording changed -->
+                <p class="section-subtitle">Explore our popular products and their pricing. We believe in transparent and fair value for exceptional organic skincare.</p>
+                <div class="services-list">
+                    <div class="service-price-item">
+                        <div class="service-info">
+                            <!-- Wording changed -->
+                            <h4>Radiant Butter Signature Body Cream (500ml)</h4>
+                            <p>A comprehensive, deep-moisturizing body cream tailored for long-lasting hydration. Includes essential organic oils for smooth skin.</p>
+                        </div>
+                        <div class="service-booking">
+                            <span class="price">₦25,000</span>
+                            <button class="button-style">Buy Now</button>
+                        </div>
+                    </div>
+                    <div class="service-price-item">
+                        <div class="service-info">
+                            <!-- Wording changed -->
+                            <h4>Revitalizing Face Balm (100ml)</h4>
+                            <p>An advanced, lightweight daily face product. Stimulates natural radiance and improves overall skin texture using non-comedogenic ingredients.</p>
+                        </div>
+                        <div class="service-booking">
+                            <span class="price">₦45,000</span>
+                            <button class="button-style">Buy Now</button>
+                        </div>
+                    </div>
+                    <div class="service-price-item">
+                        <div class="service-info">
+                            <!-- Wording changed -->
+                            <h4>Nourishing Hand & Foot Cream (150ml)</h4>
+                            <p>A specialized cream to soothe and protect dry hands and feet from cracking and daily exposure. Intensive repair formula.</p>
+                        </div>
+                        <div class="service-booking">
+                            <span class="price">₦30,000</span>
+                            <button class="button-style">Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="services-pricing-show-more">
+                    <button class="button-style button-outline">View Full Product Catalogue</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="contact-section section-padding" id="contact">
+            <div class="container">
+                 <h2 class="section-title"><span>Connect With Us</span></h2>
+                <!-- Wording changed -->
+                <p class="section-subtitle">Ready to start your journey to healthier, glowing skin? Reach out to us today. We're excited to welcome you to Radiant Butter.</p>
+                <div class="contact-container">
+                    <div class="contact-info">
+                        <h3>Visit or Call Us</h3>
+                        <!-- Wording changed -->
+                        <p>Our team is available to answer your questions and help you with your organic cream order or inquiry.</p>
+                        <ul style="list-style: none; padding:0;">
+                            <li><i class="fas fa-map-marker-alt"></i>123 Serenity Lane, Blissville, NG</li>
+                            <li><i class="fas fa-phone-alt"></i>+234 800 123 4567</li>
+                            <li><i class="fas fa-envelope"></i>hello@radiantbutter.com</li>
+                            <li><i class="fas fa-clock"></i>Mon - Sat: 9 AM - 7 PM</li>
+                        </ul>
+                    </div>
+                    <div class="contact-form-wrapper">
+                        <h3>Send a Message</h3>
+                        <form class="contact-form" id="contactForm">
+                            <div class="form-group"><input type="text" name="name" placeholder="Full Name" required></div>
+                            <div class="form-group"><input type="email" name="email" placeholder="Email Address" required></div>
+                            <div class="form-group"><input type="tel" name="phone" placeholder="Phone Number (Optional)"></div>
+                            <div class="form-group"><textarea name="message" placeholder="Your Message or Inquiry" required></textarea></div>
+                            <button type="submit" class="button-style">Send Message</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-logo">
+                <img src="https://vorv4jye8h09tbza.public.blob.vercel-storage.com/WhatsApp%20Image%202025-10-28%20at%2021.32.48_7ded4638.jpg" alt="Radiant Butter Logo">
+            </div>
+            <div class="footer-links">
+                <a href="#home">Home</a>
+                <a href="#why-choose-us">About</a>
+                <a href="#our-services">Products</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <div class="footer-socials">
+                <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            </div>
+            <p class="footer-copyright">&copy; <span id="currentYear"></span> Radiant Butter. All Rights Reserved. Crafted with Care.</p>
+        </div>
+    </footer>
+
+    <script>
+    // Function to show a temporary message instead of alert()
+    function showFormMessage(formEl, message, isError = false) {
+        let msgEl = formEl.querySelector('.form-message');
+        if (!msgEl) {
+            msgEl = document.createElement('p');
+            msgEl.className = 'form-message';
+            // Using the new tan theme colors for the success message
+            msgEl.style.cssText = `
+                padding: 0.8rem; 
+                margin-top: 1rem; 
+                border-radius: 8px; 
+                font-weight: 600; 
+                text-align: center;
+                opacity: 0;
+                transition: opacity 0.4s ease;
+                color: ${isError ? '#a31616' : '#8F6E49'};
+                background-color: ${isError ? '#fdd8d8' : '#f7f4f0'};
+                border: 1px solid ${isError ? '#a31616' : '#A88258'};
+            `;
+            formEl.appendChild(msgEl);
+            setTimeout(() => msgEl.style.opacity = 1, 10);
+        }
+        msgEl.textContent = message;
+        
+        setTimeout(() => {
+            msgEl.style.opacity = 0;
+            setTimeout(() => msgEl.remove(), 500);
+        }, 4000); 
+    }
+        
+    document.addEventListener("DOMContentLoaded", () => {
+        // --- Sticky Header & Active Nav ---
+        const header = document.getElementById("mainHeader");
+        const navLinks = document.querySelectorAll(".nav-link"); 
+        const sections = document.querySelectorAll("main section[id]"); 
+
+        function stickyHeader() {
+            if (window.scrollY > 30) { 
+                header.classList.add("scrolled");
+            } else {
+                header.classList.remove("scrolled");
+            }
+        }
+
+        function activateNavLink() {
+            let currentSectionId = "";
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop - header.offsetHeight - 20) { 
+                    currentSectionId = section.getAttribute("id");
+                }
+            });
+            
+            if (!currentSectionId && pageYOffset < sections[0].offsetTop) {
+                currentSectionId = "home";
+            }
+
+            navLinks.forEach(link => {
+                link.classList.remove("active");
+                if (link.getAttribute("href").substring(1) === currentSectionId) {
+                    link.classList.add("active");
+                }
+            });
+        }
+        window.addEventListener("scroll", () => {
+            stickyHeader();
+            activateNavLink();
+        });
+        stickyHeader(); 
+        activateNavLink(); 
+
+        // --- Mobile Menu ---
+        const mobileMenuToggle = document.getElementById("mobileMenuToggle");
+        const mobileNav = document.getElementById("mobileNav");
+        const mobileMenuClose = document.getElementById("mobileMenuClose");
+        const mobileNavLinks = mobileNav.querySelectorAll("a.nav-link");
+
+        if (mobileMenuToggle && mobileNav && mobileMenuClose) {
+            mobileMenuToggle.addEventListener("click", () => mobileNav.classList.add("active"));
+            mobileMenuClose.addEventListener("click", () => mobileNav.classList.remove("active"));
+            mobileNavLinks.forEach(link => {
+                link.addEventListener("click", () => mobileNav.classList.remove("active"));
+            });
+             // Close mobile menu if clicked outside
+            document.addEventListener('click', function(event) {
+                const isClickInsideNav = mobileNav.contains(event.target);
+                const isClickOnToggle = mobileMenuToggle.contains(event.target);
+                if (!isClickInsideNav && !isClickOnToggle && mobileNav.classList.contains('active')) {
+                    mobileNav.classList.remove('active');
+                }
+            });
+        }
+        
+        // --- Review Slider ---
+        const reviewSliderEl = document.getElementById('reviewSlider');
+        if (reviewSliderEl) {
+            const reviewsData = [
+                { avatar: "/placeholder.svg?width=80&height=80&text=J.M", name: "Jessica M.", text: "Absolutely loved my experience! My skin feels rejuvenated and looks amazing. The creams are so rich and effective." },
+                { avatar: "/placeholder.svg?width=80&height=80&text=D.K", name: "David K.", text: "A truly professional and high-quality product. The Gentlemen's Hydration Cream was fantastic. I left feeling refreshed." },
+                { avatar: "/placeholder.svg?width=80&height=80&text=S.L", name: "Sarah L.", text: "The best body cream I've ever had! The organic products are top-notch, and the staff is friendly. My skin has never looked better." },
+                { avatar: "/placeholder.svg?width=80&height=80&text=M.B", name: "Michael B.", text: "My go-to for moisture. Clean, organic, and truly a staple in my routine. Highly recommend their products." },
+                { avatar: "/placeholder.svg?width=80&height=80&text=E.R", name: "Emily R.", text: "I was nervous about switching to organic, but the results are incredible! My dry skin is gone." }
+            ];
+            
+            let currentReviewIndex = 0;
+            let reviewSlidesHtml = '';
+
+            reviewsData.forEach(review => {
+                reviewSlidesHtml += `
+                    <div class="review-card">
+                        <img src="${review.avatar}" alt="${review.name}" class="reviewer-avatar">
+                        <p class="reviewer-name">${review.name}</p>
+                        <p class="review-source">Verified Customer</p>
+                        <p class="review-text">${review.text}</p>
+                    </div>`;
+            });
+            // Duplicate for smooth infinite loop illusion
+            reviewSliderEl.innerHTML = reviewSlidesHtml + reviewSlidesHtml + reviewSlidesHtml; 
+
+            const reviewCards = Array.from(reviewSliderEl.children);
+            const totalOriginalReviews = reviewsData.length;
+            currentReviewIndex = totalOriginalReviews; // Start at the first "real" set of slides
+
+            function updateReviewSlider(instant = false) {
+                const cardWidth = reviewCards[0].getBoundingClientRect().width;
+                const cardMargin = parseFloat(getComputedStyle(reviewCards[0]).marginRight) + parseFloat(getComputedStyle(reviewCards[0]).marginLeft);
+                const slideWidth = cardWidth + cardMargin;
+                
+                reviewSliderEl.style.transition = instant ? 'none' : 'transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1)';
+                reviewSliderEl.style.transform = `translateX(-${currentReviewIndex * slideWidth}px)`;
+
+                // Active class logic for desktop (3 visible)
+                if (window.innerWidth >= 1024) {
+                    reviewCards.forEach(card => card.classList.remove('active'));
+                    // The "active" card is the middle one of the visible set
+                    const activeCardIndex = (currentReviewIndex + 1) % reviewCards.length;
+                    if (reviewCards[activeCardIndex]) {
+                         reviewCards[activeCardIndex].classList.add('active');
+                    }
+                } else { // Mobile/Tablet (1 primary visible)
+                     reviewCards.forEach(card => card.classList.remove('active'));
+                     if (reviewCards[currentReviewIndex % reviewCards.length]) {
+                        reviewCards[currentReviewIndex % reviewCards.length].classList.add('active');
+                     }
+                }
+            }
+            
+            document.getElementById('nextReview').addEventListener('click', () => {
+                currentReviewIndex++;
+                updateReviewSlider();
+                if (currentReviewIndex >= totalOriginalReviews * 2) { 
+                    setTimeout(() => {
+                        currentReviewIndex = totalOriginalReviews;
+                        updateReviewSlider(true);
+                    }, 500); 
+                }
+            });
+
+            document.getElementById('prevReview').addEventListener('click', () => {
+                currentReviewIndex--;
+                updateReviewSlider();
+                if (currentReviewIndex < totalOriginalReviews) {
+                    setTimeout(() => {
+                        currentReviewIndex = totalOriginalReviews * 2 -1;
+                        updateReviewSlider(true);
+                    }, 500);
+                }
+            });
+            
+            let isReviewDown = false, reviewStartX, reviewScrollLeftInitial;
+            reviewSliderEl.addEventListener('mousedown', (e) => { isReviewDown = true; reviewSliderEl.classList.add('grabbing'); reviewStartX = e.pageX - reviewSliderEl.offsetLeft; reviewScrollLeftInitial = reviewSliderEl.scrollLeft; reviewSliderEl.style.transition = 'none'; });
+            reviewSliderEl.addEventListener('mouseleave', () => { if(isReviewDown) { isReviewDown = false; reviewSliderEl.classList.remove('grabbing'); /* Snap logic could be added here if not using buttons primarily */ }});
+            reviewSliderEl.addEventListener('mouseup', () => { if(isReviewDown) { isReviewDown = false; reviewSliderEl.classList.remove('grabbing'); /* Snap logic */ }});
+            reviewSliderEl.addEventListener('mousemove', (e) => { if(!isReviewDown) return; e.preventDefault(); const x = e.pageX - reviewSliderEl.offsetLeft; const walk = (x - reviewStartX) * 1.2; reviewSliderEl.scrollLeft = reviewScrollLeftInitial - walk; });
+            
+            updateReviewSlider(true); 
+            window.addEventListener('resize', () => updateReviewSlider(true));
+        }
+
+        // --- Before & After Slider ---
+        const baSliderEl = document.getElementById('baSlider');
+        if (baSliderEl) {
+            const baSlides = baSliderEl.querySelectorAll('.ba-slide');
+            let currentBaIndex = 0;
+
+            function updateBaSlider() {
+                baSliderEl.style.transform = `translateX(-${currentBaIndex * 100}%)`;
+            }
+            document.getElementById('nextBaSlide').addEventListener('click', () => {
+                currentBaIndex = (currentBaIndex + 1) % baSlides.length;
+                updateBaSlider();
+            });
+            document.getElementById('prevBaSlide').addEventListener('click', () => {
+                currentBaIndex = (currentBaIndex - 1 + baSlides.length) % baSlides.length;
+                updateBaSlider();
+            });
+            updateBaSlider(); 
+        }
+
+        // --- FAQ Accordion ---
+        const faqContainer = document.getElementById('faqContainer');
+        if (faqContainer) {
+            const faqs = [
+                { q: "What is the key benefit of Radiant Butter creams?", a: "Our focus is deep, lasting moisturization, complexion maintenance, and pure, organic ingredients. Every product is 100% organic and preservative-free." },
+                { q: "Are your products suitable for sensitive skin?", a: "Yes, our organic creams are formulated to be gentle and nourishing, suitable for all skin types, including sensitive skin. We use high-quality, natural ingredients." },
+                { q: "What does 'Ethically Sourced' mean?", a: "It means our ingredients are responsibly and ethically obtained, prioritizing sustainability and ensuring fairness throughout the supply chain and production process." },
+                { q: "How long until I see results from using the cream?", a: "While deep hydration is felt instantly, improvements in complexion and skin barrier function are usually visible after 2-4 weeks of consistent, daily use." },
+                { q: "What are your payment options?", a: "We accept cash, major credit/debit cards, and bank transfers. Please inquire about our product bundles for discounted pricing." }
+            ];
+            faqContainer.innerHTML = faqs.map(faq => `
+                <div class="faq-item">
+                    <div class="faq-question">${faq.q} <span class="icon"><i class="fas fa-plus"></i></span></div>
+                    <div class="faq-answer"><p>${faq.a}</p></div>
+                </div>
+            `).join('');
+            
+            faqContainer.addEventListener('click', (e) => {
+                const question = e.target.closest('.faq-question');
+                if (question) {
+                    const item = question.parentElement;
+                    const answer = item.querySelector('.faq-answer');
+                    const iconEl = question.querySelector('.icon i');
+                    
+                    const isActive = item.classList.toggle('active');
+                    
+                    if (isActive) {
+                        answer.style.maxHeight = answer.scrollHeight + "px";
+                        iconEl.classList.remove('fa-plus');
+                        iconEl.classList.add('fa-minus');
+                    } else {
+                        answer.style.maxHeight = null;
+                        iconEl.classList.remove('fa-minus');
+                        iconEl.classList.add('fa-plus');
+                    }
+                }
+            });
+        }
+        
+        const contactForm = document.getElementById('contactForm');
+        if(contactForm) {
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                // Custom message instead of alert()
+                showFormMessage(this, 'Thank you for your message! We will get back to you soon.', false); 
+                this.reset();
+            });
+        }
+        document.getElementById("currentYear").textContent = new Date().getFullYear();
+    });
+    </script>
+</body>
+</html>
